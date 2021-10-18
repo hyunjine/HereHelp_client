@@ -54,6 +54,7 @@ public class Main extends AppCompatActivity implements AutoPermissionsListener, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        // 안녕하쇼ㅔㅇ쇼
         // 컨텍스트 초기화
         Data.mainContext = Main.this;
         // 위치 권한 요청
