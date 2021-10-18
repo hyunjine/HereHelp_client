@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">HereHelp</string>
+    <string name="main_text">여기, 도움</string>
+    <string name="forgot_password"><u>비밀번호를 잊어버리셨나요?</u></string>
+</resources>

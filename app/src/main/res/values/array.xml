@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="array_type">
+        <item>카테고리 선택</item>
+        <item>상품판매</item>
+        <item>전문지식</item>
+        <item>심부름</item>
+        <item>아르바이트</item>
+        <item>기타</item>
+    </string-array>
+</resources>

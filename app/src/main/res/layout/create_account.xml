@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageButton
+        android:id="@+id/btn_goToBack"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/circle_button"
+        android:scaleType="fitCenter"
+        android:src="@drawable/icon_go_to_back" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="50dp"
+        android:fontFamily="@font/title"
+        android:text="여기, 도움"
+        android:textColor="#0e1544"
+        android:textSize="45sp" />
+
+    <EditText
+        android:id="@+id/et_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/calibri"
+        android:hint="이름"
+        android:maxLines="1"
+        android:textColor="#0e1544"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <EditText
+            android:id="@+id/et_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/calibri"
+            android:hint="아이디"
+            android:maxLines="1"
+            android:textColor="#0e1544"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btn_checkOverlapID"
+            android:layout_width="65dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/shape_of_rectangle"
+            android:fontFamily="@font/calibri"
+            android:text="중복확인"
+            android:textColor="#0e1544"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/calibri"
+        android:hint="비밀번호"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:textColor="#0e1544"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <EditText
+            android:id="@+id/et_checkPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/calibri"
+            android:hint="비밀번호 확인"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:textColor="#0e1544"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_passwordStatus"
+            android:layout_width="70dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="15dp"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <EditText
+            android:id="@+id/et_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/calibri"
+            android:hint="닉네임"
+            android:maxLines="1"
+            android:textColor="#0e1544"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btn_checkOverlapNickname"
+            android:layout_width="65dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/shape_of_rectangle"
+            android:fontFamily="@font/calibri"
+            android:text="중복확인"
+            android:textColor="#0e1544"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/et_phonenumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginBottom="50dp"
+        android:fontFamily="@font/calibri"
+        android:hint="휴대폰 번호 (ex - 01011112222)"
+        android:inputType="number"
+        android:maxLines="1"
+        android:textColor="#0e1544"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/btn_createAccount"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/shape_of_rectangle"
+        android:fontFamily="@font/calibri"
+        android:text="회원가입"
+        android:textColor="#0e1544"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+
+</LinearLayout>

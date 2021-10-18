@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="259dp"
+        android:layout_height="267dp"
+        android:src="@drawable/logo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="30dp"
+        android:fontFamily="@font/title"
+        android:text="여기, 도움"
+        android:textColor="#0e1544"
+        android:textSize="45dp" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/et_id"
+            android:layout_width="268dp"
+            android:layout_height="match_parent"
+            android:drawableRight="@drawable/ic_email_white_24dp"
+            android:drawablePadding="16dp"
+            android:fontFamily="@font/calibri"
+            android:hint="ID"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:text="system"
+            android:textColor="#0e1544"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawableRight="@drawable/ic_lock_white_24dp"
+            android:drawablePadding="16dp"
+            android:fontFamily="@font/calibri"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="sys"
+            android:textColor="#0e1544"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/cb_autoLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="자동 로그인" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/shape_of_rectangle"
+            android:fontFamily="@font/calibri"
+            android:text="로그인"
+            android:textAllCaps="false"
+            android:textColor="#0e1544"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_createAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/shape_of_rectangle"
+            android:fontFamily="@font/calibri"
+            android:text="회원가입"
+            android:textAllCaps="false"
+            android:textColor="#0e1544"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</LinearLayout>
