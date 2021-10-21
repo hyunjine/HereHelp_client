@@ -1,4 +1,4 @@
-package com.example.herehelp;
+package com.example.herehelp.main;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -11,11 +11,8 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +24,14 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.herehelp.Data;
+import com.example.herehelp.R;
+import com.example.herehelp.activity_record.ActivityRecord;
+import com.example.herehelp.chatting.ChattingList;
+import com.example.herehelp.chatting.ChattingWindow;
+import com.example.herehelp.completehelp.CompleteHelp;
+import com.example.herehelp.completehelp.SelectCompleteHelp;
+import com.example.herehelp.init.Login;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapsInitializer;
@@ -36,17 +41,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.pedro.library.AutoPermissionsListener;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedWriter;
-import java.io.EOFException;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.util.HashMap;
 
-public class Main extends AppCompatActivity implements AutoPermissionsListener, GoogleMap.OnMarkerClickListener, LocationListener {
+public class Main extends AppCompatActivity implements AutoPermissionsListener, GoogleMap.OnMarkerClickListener {
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
     private static final int PERMISSIONS_REQUEST_CODE = 100;
     String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
@@ -138,7 +137,8 @@ public class Main extends AppCompatActivity implements AutoPermissionsListener, 
         btn_helpComplete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Main.this, CompleteHelp.class));
+                SelectCompleteHelp bottomsheet = new SelectCompleteHelp(Main.this);
+                bottomsheet.show(getSupportFragmentManager(), "tag");
             }
         });
         // 메뉴 : 채팅 목록 버튼
@@ -188,12 +188,6 @@ public class Main extends AppCompatActivity implements AutoPermissionsListener, 
         btn_acitivityRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    JSONObject obj = new JSONObject();
-//                    obj.put("flag", "")
-                } catch (Exception e) {
-                    Data.printError(e);
-                }
                 startActivity(new Intent(Main.this, ActivityRecord.class));
             }
         });
@@ -208,6 +202,19 @@ public class Main extends AppCompatActivity implements AutoPermissionsListener, 
                 Intent intent = new Intent(Main.this, ChattingWindow.class);
                 intent.putExtra("opponent_id", opponent_id);
                 intent.putExtra("opponent_nickname", opponent_nickname);
+                startActivity(intent);
+            }
+        });
+    }
+    /*
+    도움 완료창으로 전환
+     */
+    public void goToCompleteHelp(String content) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(Main.this, CompleteHelp.class);
+                intent.putExtra("content", content);
                 startActivity(intent);
             }
         });
@@ -339,7 +346,6 @@ public class Main extends AppCompatActivity implements AutoPermissionsListener, 
 //            Data.printError(e);
 //        }
     }
-
     /*
     권한 처리 함수
      */
@@ -454,10 +460,5 @@ public class Main extends AppCompatActivity implements AutoPermissionsListener, 
         moveTaskToBack(true);                        // 태스크를 백그라운드로 이동
         finishAndRemoveTask();                        // 액티비티 종료 + 태스크 리스트에서 지우기
         android.os.Process.killProcess(android.os.Process.myPid());    // 앱 프로세스 종료
-    }
-
-    @Override
-    public void onLocationChanged(@NonNull Location location) {
-
     }
 }

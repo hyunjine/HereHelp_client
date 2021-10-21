@@ -1,4 +1,4 @@
-package com.example.herehelp;
+package com.example.herehelp.main;
 
 import android.content.Context;
 import android.location.Location;
@@ -6,16 +6,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.herehelp.Data;
+import com.example.herehelp.R;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-
-import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 

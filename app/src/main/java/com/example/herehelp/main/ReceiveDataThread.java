@@ -1,10 +1,8 @@
-package com.example.herehelp;
+package com.example.herehelp.main;
 
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
-import android.icu.text.Edits;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
@@ -12,7 +10,15 @@ import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
-import com.google.android.gms.maps.model.Marker;
+import com.example.herehelp.Data;
+import com.example.herehelp.activity_record.Info_Item;
+import com.example.herehelp.chatting.Chat_Item;
+import com.example.herehelp.chatting.ChattingList;
+import com.example.herehelp.chatting.ChattingWindow;
+import com.example.herehelp.chatting.PopupChatting;
+import com.example.herehelp.init.CreateAccount;
+import com.example.herehelp.init.Intro;
+import com.example.herehelp.init.Login;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -20,11 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.EOFException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,7 +51,6 @@ public class ReceiveDataThread extends Thread {
 
                 JSONObject obj = new JSONObject(fromServer);
                 String flag = obj.getString("flag");
-                Log.d(TAG, obj.toString());
 
                 switch (flag) {
                     case "idCheck":
@@ -87,6 +88,9 @@ public class ReceiveDataThread extends Thread {
                         break;
                     case "selectPrice":
                         selectPrice(obj);
+                        break;
+                    case "getContent":
+                        getContent(obj);
                         break;
                     case "notice":
                         notice(obj);
@@ -148,7 +152,7 @@ public class ReceiveDataThread extends Thread {
         }
     }
     /*
-    1. init 메서드
+    init 메서드
      */
     private void init(JSONObject obj) {
         try {
@@ -164,7 +168,7 @@ public class ReceiveDataThread extends Thread {
         }
     }
     /*
-    1-1. setMarkers  메서드
+    setMarkers  메서드
     */
     private void setMarkers(JSONObject markers) {
         try {
@@ -195,7 +199,7 @@ public class ReceiveDataThread extends Thread {
         return longitude;
     }
     /*
-    1-2. setAllXML 메서드
+    setAllXML 메서드
      */
     private void setAllXML(JSONArray xml) {
         try {
@@ -250,7 +254,7 @@ public class ReceiveDataThread extends Thread {
         }
     }
     /*
-    2. helpRequest 메서드
+    helpRequest 메서드
      */
     private void helpRequest(JSONObject obj) {
         try {
@@ -265,7 +269,7 @@ public class ReceiveDataThread extends Thread {
         }
     }
     /*
-    2-2. helpRequest 등록 처리
+    helpRequest 등록 처리
      */
     private void saveRequest(JSONObject obj) {
         try {
@@ -283,7 +287,7 @@ public class ReceiveDataThread extends Thread {
         }
     }
     /*
-    3. completeHelp 메서드
+    completeHelp 메서드
      */
     private void completeHelp(JSONObject obj) {
         try {
@@ -296,7 +300,7 @@ public class ReceiveDataThread extends Thread {
     }
 
     /*
-    4. markerclicked 메서드
+    markerclicked 메서드
      */
     private void markerClicked(JSONObject obj) {
         try {
@@ -312,7 +316,7 @@ public class ReceiveDataThread extends Thread {
         }
     }
     /*
-    5. chatting 메서드
+    chatting 메서드
      */
     private void chatting(JSONObject obj) {
         try {
@@ -357,7 +361,7 @@ public class ReceiveDataThread extends Thread {
         // 현재 액티비티 값 확인
         String ActivityName = getCurrentActivity();
         // 1. 메인 화면일 때
-        if (ActivityName.equals("Main")) {
+        if (ActivityName.equals("main.Main")) {
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -366,11 +370,11 @@ public class ReceiveDataThread extends Thread {
             }, 0);
         }
         // 2. 채팅 화면일 때
-        else if (ActivityName.equals("ChattingWindow"))
+        else if (ActivityName.equals("chatting.ChattingWindow"))
             ((ChattingWindow) Data.chattingContext).setChattingContent();
 
         // 3. 채팅 목록화면일 때
-        else if (ActivityName.equals("ChattingList")) {
+        else if (ActivityName.equals("chatting.ChattingList")) {
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -444,6 +448,17 @@ public class ReceiveDataThread extends Thread {
         }
     }
     /*
+    getContent 메서드
+     */
+    private void getContent(JSONObject obj) {
+        try {
+            String content = obj.getString("content");
+            ((Main) Data.mainContext).goToCompleteHelp(content);
+        } catch (Exception e) {
+            Data.printError(e);
+        }
+    }
+    /*
     notice 메서드
      */
     private void notice(JSONObject obj) {
@@ -461,7 +476,6 @@ public class ReceiveDataThread extends Thread {
         List<ActivityManager.RunningTaskInfo> info = manager.getRunningTasks(1);
         ComponentName componentName = info.get(0).topActivity;
         String ActivityName = componentName.getShortClassName().substring(1);
-        Log.d(TAG, ActivityName);
 
         return ActivityName;
     }

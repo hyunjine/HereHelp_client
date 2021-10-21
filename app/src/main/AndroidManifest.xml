@@ -23,7 +23,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDX6xCiBN7uoWJPKrIgpn1gBsduHwfHZQA" />
 
-        <activity android:name=".Intro"
+        <activity android:name=".init.Intro"
             android:label="여기, 도움">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,13 +31,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Main"/>
-        <activity android:name=".Login"/>
-        <activity android:name=".CreateAccount"/>
-        <activity android:name=".ChattingWindow" />
-        <activity android:name=".ChattingList" />
-        <activity android:name=".ActivityRecord" />
-        <activity android:name=".CompleteHelp" />
+        <activity android:name=".main.Main"/>
+        <activity android:name=".init.Login"/>
+        <activity android:name=".init.CreateAccount"/>
+        <activity android:name=".chatting.ChattingWindow" />
+        <activity android:name=".chatting.ChattingList" />
+        <activity android:name=".activity_record.ActivityRecord" />
+        <activity android:name=".completehelp.CompleteHelp" />
+        <activity android:name=".completehelp.SelectAccount" />
 
     </application>
 

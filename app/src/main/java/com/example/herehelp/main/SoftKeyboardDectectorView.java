@@ -1,4 +1,4 @@
-package com.example.herehelp;
+package com.example.herehelp.main;
 
 import android.app.Activity;
 import android.content.Context;

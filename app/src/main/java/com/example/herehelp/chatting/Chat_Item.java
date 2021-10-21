@@ -1,4 +1,4 @@
-package com.example.herehelp;
+package com.example.herehelp.chatting;
 
 public class Chat_Item {
 

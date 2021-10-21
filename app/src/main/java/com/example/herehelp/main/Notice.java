@@ -1,4 +1,4 @@
-package com.example.herehelp;
+package com.example.herehelp.main;
 
 import android.app.ActionBar;
 import android.app.Dialog;
@@ -10,6 +10,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.herehelp.R;
 
 public class Notice {
     public Notice(Context context, String title, String content) {

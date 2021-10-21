@@ -165,16 +165,19 @@
         android:textColor="#0e1544"
         android:textSize="16sp" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
     <Button
         android:id="@+id/btn_createAccount"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:layout_gravity="center"
-        android:background="@drawable/shape_of_rectangle"
-        android:fontFamily="@font/calibri"
-        android:text="회원가입"
-        android:textColor="#0e1544"
-        android:textSize="16dp"
+        android:background="#0e1544"
+        android:text="회원 가입"
+        android:textColor="#ffffff"
+        android:textSize="22dp"
         android:textStyle="bold" />
 
 </LinearLayout>

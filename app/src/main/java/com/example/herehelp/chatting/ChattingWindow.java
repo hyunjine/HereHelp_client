@@ -1,4 +1,4 @@
-package com.example.herehelp;
+package com.example.herehelp.chatting;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -20,12 +20,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.herehelp.Data;
+import com.example.herehelp.main.Popup;
+import com.example.herehelp.R;
+import com.example.herehelp.main.SoftKeyboardDectectorView;
+
 import org.json.JSONObject;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class ChattingWindow extends AppCompatActivity {

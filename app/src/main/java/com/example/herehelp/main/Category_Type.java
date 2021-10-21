@@ -1,4 +1,4 @@
-package com.example.herehelp;
+package com.example.herehelp.main;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -11,6 +11,9 @@ import android.view.Window;
 import android.widget.CheckBox;
 
 import androidx.annotation.NonNull;
+
+import com.example.herehelp.Data;
+import com.example.herehelp.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

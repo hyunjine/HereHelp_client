@@ -3,6 +3,8 @@ package com.example.herehelp;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.herehelp.activity_record.Info_Item;
+import com.example.herehelp.chatting.Chat_Item;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
 
@@ -21,7 +23,7 @@ public class Data {
     // 소켓
     public static Socket socket;
     // IP
-    public static String SERVER_IP = "192.168.1.39";
+    public static String SERVER_IP = "server";
     // PORT
     public static int SERVER_PORT = 3000;
     // 서버 데이터 전송

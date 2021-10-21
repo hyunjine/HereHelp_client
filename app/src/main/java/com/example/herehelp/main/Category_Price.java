@@ -1,4 +1,4 @@
-package com.example.herehelp;
+package com.example.herehelp.main;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -10,11 +10,13 @@ import android.text.Editable;
 import android.text.Selection;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Window;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
+
+import com.example.herehelp.Data;
+import com.example.herehelp.R;
 
 import org.json.JSONObject;
 

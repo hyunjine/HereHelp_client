@@ -1,4 +1,4 @@
-package com.example.herehelp;
+package com.example.herehelp.activity_record;
 
 public class Info_Item {
 

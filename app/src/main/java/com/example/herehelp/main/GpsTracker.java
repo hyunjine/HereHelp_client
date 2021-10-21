@@ -1,4 +1,4 @@
-package com.example.herehelp;
+package com.example.herehelp.main;
 
 import android.app.Service;
 import android.content.Context;
@@ -9,7 +9,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
 
-import com.google.android.gms.maps.model.LatLng;
+import com.example.herehelp.Data;
 
 public class GpsTracker extends Service implements LocationListener {
     private Context context;

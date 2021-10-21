@@ -1,7 +1,6 @@
-package com.example.herehelp;
+package com.example.herehelp.chatting;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +12,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.herehelp.completehelp.CompleteHelp;
+import com.example.herehelp.Data;
+import com.example.herehelp.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -46,14 +49,11 @@ public class ChattingListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             @Override
             public void onClick(View v) {
                 // CompleteHelp에서 호출 시
-                if (flag.equals("CompleteHelp")) {
+                if (flag.equals("CompleteHelp"))
                     ((CompleteHelp) context).setNickname(Data.chatData.get(keys[position]).get(0).getOpponent_nickname());
-                    Log.d("print", Data.chatData.get(keys[position]).get(0).getOpponent_nickname());
-                }
                 // ChattingList에서 호출 시
                 else if (flag.equals("ChattingList"))
                     ((ChattingList) context).goToChatting(keys[position].toString(), Data.chatData.get(keys[position]).get(0).getOpponent_nickname());
-
             }
         });
     }

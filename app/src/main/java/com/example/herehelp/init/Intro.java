@@ -1,23 +1,19 @@
-package com.example.herehelp;
+package com.example.herehelp.init;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.json.JSONObject;
+import com.example.herehelp.Data;
+import com.example.herehelp.main.Main;
+import com.example.herehelp.R;
+import com.example.herehelp.main.ReceiveDataThread;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.Socket;
+import org.json.JSONObject;
 
 public class Intro extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.example.herehelp;
+package com.example.herehelp.chatting;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.herehelp.Data;
+import com.example.herehelp.main.Popup;
+import com.example.herehelp.R;
 
 public class ChattingList extends AppCompatActivity {
     private RecyclerView recyclerView;

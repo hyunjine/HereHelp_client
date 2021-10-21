@@ -1,4 +1,4 @@
-package com.example.herehelp;
+package com.example.herehelp.main;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.herehelp.Data;
+import com.example.herehelp.R;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -47,7 +49,8 @@ public class MarkerMethod extends AppCompatActivity {
                     if (id.equals(Data.my_id))
                         ((Main) Data.mainContext).toastMsg("요청이 해제 되었습니다.");
                 } catch (NullPointerException e) {
-                    ((Main) Data.mainContext).toastMsg("요청한 도움이 없습니다!");
+                    if (id.equals(Data.my_id))
+                        ((Main) Data.mainContext).toastMsg("요청한 도움이 없습니다!");
                 }
             }
         });
@@ -75,8 +78,5 @@ public class MarkerMethod extends AppCompatActivity {
         view.draw(canvas);
 
         return bitmap;
-    }
-    private void setMarkerOption() {
-
     }
 }

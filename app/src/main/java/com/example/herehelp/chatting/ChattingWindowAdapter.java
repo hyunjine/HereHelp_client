@@ -1,4 +1,4 @@
-package com.example.herehelp;
+package com.example.herehelp.chatting;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.herehelp.Data;
+import com.example.herehelp.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

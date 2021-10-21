@@ -1,8 +1,7 @@
-package com.example.herehelp;
+package com.example.herehelp.main;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 
@@ -10,15 +9,16 @@ import android.text.Editable;
 import android.text.Selection;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import com.example.herehelp.Data;
+import com.example.herehelp.R;
 
 import org.json.JSONObject;
 
@@ -27,7 +27,7 @@ import java.text.DecimalFormat;
 public class HelpRequest {
     private Context context;
     private String beforeStr;
-    private int category;
+    private int category = 0;
     public HelpRequest(Context context) {
         this.context = context;
     }

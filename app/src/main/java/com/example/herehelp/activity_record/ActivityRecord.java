@@ -1,8 +1,7 @@
-package com.example.herehelp;
+package com.example.herehelp.activity_record;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -12,6 +11,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.herehelp.Data;
+import com.example.herehelp.R;
 
 import java.text.DecimalFormat;
 
