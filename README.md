@@ -29,8 +29,7 @@ Image
 ## 어플 소개
 ### 1. 로그인 및 회원가입
 
-> 로그인
-> 
+> 로그인 
 <img src="https://user-images.githubusercontent.com/92709137/138470161-81451897-85f5-486e-8c93-5790145fff22.png" width="450"/>
 
 * 자동 로그인은 SharedPreferences클래스를 사용하여 저장하였습니다.
@@ -51,7 +50,30 @@ if (isAutoLogin) {
     
 editor.commit();
 ```
-<img src="https://user-images.githubusercontent.com/92709137/138470154-34474877-406c-43ca-96c9-176ee9da2b9e.png" width="337"/>
-<img src="https://user-images.githubusercontent.com/92709137/138470154-34474877-406c-43ca-96c9-176ee9da2b9e.png" width="337"/>
+> 회원가입
+<p align="left">
+<img src="https://user-images.githubusercontent.com/92709137/138470154-34474877-406c-43ca-96c9-176ee9da2b9e.png" width="350"/>
+<img src="https://user-images.githubusercontent.com/92709137/138470160-867a8d18-f775-4c1f-b697-76f3a7231f0e.png" width="350"/>
+</p>
 
-* 아이디와 닉네임은 중복확인 처리를 하였고 비밀번호 일치확인은 addTextChangedListener를 활용하여 텍스트가 변경될 때 마다 일치여부를 확인하였습니다.
+* 아이디와 닉네임은 중복확인 버튼을 눌러 중복상태를 확인했습니다.
+* 비밀번호는 addTextChangedListener를 사용하여 텍스트가 바뀔 때 마다 상태를 표시하였습니다.
+
+### 2. 메인화면
+
+<p align="left">
+<img src="https://user-images.githubusercontent.com/92709137/138476866-b25b4cf7-4a1b-43c4-a078-d9936f06c3c0.png" width="350"/>
+<img src="https://user-images.githubusercontent.com/92709137/138476883-78f5cdf1-16aa-4686-a9b4-c33828782ec4.png" width="350"/>
+</p>
+
+* 로그인 시 현재 위치를 기반으로 카메라가 설정되고 다른 사용자들이 등록한 마커가 보여집니다.
+
+<p align="left">
+<img src="https://user-images.githubusercontent.com/92709137/138476882-d2c517da-aec9-4a1b-a52a-27f6f07be1b5.png" width="350"/>
+<img src="https://user-images.githubusercontent.com/92709137/138476880-03dfd982-8db9-4f9d-bdc9-f9fc997c69eb.png" width="350"/>
+</p>
+
+* 우측하단 +모양 버튼을 누르면 유형, 가격별 카테고리를 설정하여 원하는 마커만 볼 수 있습니다.
+
+### 3. 메뉴
+<img src="https://user-images.githubusercontent.com/92709137/138462672-a096ad9c-7be7-4267-8757-4274f2d1ee60.png" width="450"/>
