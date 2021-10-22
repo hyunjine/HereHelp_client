@@ -23,7 +23,7 @@ public class Data {
     // 소켓
     public static Socket socket;
     // IP
-    public static String SERVER_IP = "server";
+    public static String SERVER_IP = "192.168.1.39";
     // PORT
     public static int SERVER_PORT = 3000;
     // 서버 데이터 전송

@@ -117,8 +117,7 @@ public class Main extends AppCompatActivity implements AutoPermissionsListener, 
         btn_helpRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HelpRequest helpRequestDialog = new HelpRequest(Main.this);
-                helpRequestDialog.show();
+                startActivity(new Intent(Main.this, HelpRequest.class));
             }
         });
         // 메뉴: 로그인 버튼

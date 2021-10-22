@@ -1,21 +1,22 @@
 package com.example.herehelp.main;
 
-import android.app.Dialog;
-import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.Window;
+
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.herehelp.Data;
 import com.example.herehelp.R;
@@ -24,24 +25,17 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 
-public class HelpRequest {
-    private Context context;
+public class HelpRequest extends AppCompatActivity {
     private String beforeStr;
     private int category = 0;
-    public HelpRequest(Context context) {
-        this.context = context;
-    }
 
-    public void show() {
-        Dialog dlg = new Dialog(context);
-        // 타이틀바 숨기기
-        dlg.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dlg.setContentView(R.layout.help_request);
-        dlg.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dlg.show();
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.help_request);
 
-        EditText et_content = dlg.findViewById(R.id.et_content);
-        EditText et_price = dlg.findViewById(R.id.et_price);
+        EditText et_content = findViewById(R.id.et_content);
+        EditText et_price = findViewById(R.id.et_price);
         et_price.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -58,8 +52,8 @@ public class HelpRequest {
             public void afterTextChanged(Editable s) { }
         });
         // 선택 박스
-        Spinner sp_selectCategory = dlg.findViewById(R.id.sp_selectCategory);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, Data.items);
+        Spinner sp_selectCategory = findViewById(R.id.sp_selectCategory);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(HelpRequest.this, android.R.layout.simple_spinner_dropdown_item, Data.items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_selectCategory.setAdapter(adapter);
         sp_selectCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -70,20 +64,20 @@ public class HelpRequest {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                category = 0;
             }
         });
         // 등록 버튼
-        Button okButton = dlg.findViewById(R.id.okButton);
-        okButton.setOnClickListener(new View.OnClickListener() {
+        Button btn_ok = findViewById(R.id.btn_ok);
+        btn_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
                     String content = et_content.getText().toString();
                     String price = et_price.getText().toString().trim();
 
-                    double latitude = new GpsTracker(context).getLatitude();
-                    double longitude = new GpsTracker(context).getLongitude();
+                    double latitude = new GpsTracker(HelpRequest.this).getLatitude();
+                    double longitude = new GpsTracker(HelpRequest.this).getLongitude();
                     String loc = latitude + "#" + longitude;
 
                     JSONObject data = new JSONObject();
@@ -96,18 +90,18 @@ public class HelpRequest {
 
                     Data.sendToServer(data);
 
-                    dlg.dismiss();
+                    finish();
                 } catch (Exception e) {
                     Data.printError(e);
                 }
             }
         });
-        // 취소 버튼
-        Button btn_cancelButton = dlg.findViewById(R.id.btn_cancelButton);
-        btn_cancelButton.setOnClickListener(new View.OnClickListener() {
+        // 뒤로 가기 버튼
+        ImageButton btn_goToBack = findViewById(R.id.btn_goToBack);
+        btn_goToBack.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                dlg.dismiss();
+            public void onClick(View v) {
+                finish();
             }
         });
     }

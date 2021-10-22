@@ -39,7 +39,7 @@
         <activity android:name=".activity_record.ActivityRecord" />
         <activity android:name=".completehelp.CompleteHelp" />
         <activity android:name=".completehelp.SelectAccount" />
+        <activity android:name=".main.HelpRequest" />
 
     </application>
-
 </manifest>
