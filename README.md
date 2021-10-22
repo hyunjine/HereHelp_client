@@ -52,5 +52,6 @@ if (isAutoLogin) {
 editor.commit();
 ```
 <img src="https://user-images.githubusercontent.com/92709137/138470154-34474877-406c-43ca-96c9-176ee9da2b9e.png" width="337"/>
+<img src="https://user-images.githubusercontent.com/92709137/138470154-34474877-406c-43ca-96c9-176ee9da2b9e.png" width="337"/>
 
 * 아이디와 닉네임은 중복확인 처리를 하였고 비밀번호 일치확인은 addTextChangedListener를 활용하여 텍스트가 변경될 때 마다 일치여부를 확인하였습니다.
