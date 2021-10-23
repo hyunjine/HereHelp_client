@@ -50,7 +50,7 @@ Image
 ## 1. 로그인 및 회원가입
 
 > **1-1. 로그인**
-<img src="https://user-images.githubusercontent.com/92709137/138470161-81451897-85f5-486e-8c93-5790145fff22.png" width="450"/>
+<img src="https://user-images.githubusercontent.com/92709137/138470161-81451897-85f5-486e-8c93-5790145fff22.png" width="50%"/>
 
 * 자동 로그인은 SharedPreferences클래스를 사용하여 저장하였습니다.
 
@@ -72,8 +72,8 @@ editor.commit();
 ```
 > **1-2. 회원가입**
 <p align="left">
-<img src="https://user-images.githubusercontent.com/92709137/138470154-34474877-406c-43ca-96c9-176ee9da2b9e.png" width="450"/>
-<img src="https://user-images.githubusercontent.com/92709137/138470160-867a8d18-f775-4c1f-b697-76f3a7231f0e.png" width="450"/>
+<img src="https://user-images.githubusercontent.com/92709137/138470154-34474877-406c-43ca-96c9-176ee9da2b9e.png" width="45%"/>
+<img src="https://user-images.githubusercontent.com/92709137/138470160-867a8d18-f775-4c1f-b697-76f3a7231f0e.png" width="45%"/>
 </p>
 
 * 아이디와 닉네임은 중복확인 버튼을 눌러 중복상태를 확인했습니다.
