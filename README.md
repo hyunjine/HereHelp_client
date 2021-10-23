@@ -159,6 +159,7 @@ editor.commit();
 
 * 로그인 시 현재 위치를 기반으로 카메라가 설정되고 다른 사용자들이 등록한 마커가 보여집니다.
 * 마커는 앱 실행 시 또는 추가적인 등록이 있을 때 마다 서버에서 등록된 아이디와 위치를 받아 파싱하여 표시합니다
+* 서버에서 마커 위치를 HashMap으로 저장하고 클라이언트에게 JSON형태가 아닌 HashMap을 그대로 전송하기에 Gson클래스를 사용하여 파싱했습니다.
 ```java
 private void setMarkers(JSONObject markers) {
         try {
