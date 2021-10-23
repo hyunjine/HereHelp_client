@@ -26,7 +26,7 @@
 > **Client**
 > * JAVA - Android Stuio
 > * Google Map API
-> * JSON
+> * JSON GSON
 
 ## 어플 소개
 
@@ -239,6 +239,26 @@ else
 </p>
 
 * 거래 완료는 사용자끼리 만나 도움을 주고 받으면 글 작성자가 거래완료 버튼을 눌러 도움을 준 계정을 선택해 저장하는 기능입니다.
+* 계정 선택 액티비티에서 선택 결과를 onActivityResult메서드로 받아와 처리하였습니다
+```java
+public void selectItem(String opponent_nickname) {
+   intent.putExtra("opponent_nickname" , opponent_nickname); //사용자에게 입력받은값 넣기
+   setResult(RESULT_OK, intent); //결과를 저장
+   finish();//액티비티 종료
+}
+    
+@Override
+protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+super.onActivityResult(requestCode, resultCode, data);
+if (requestCode == 100) {
+   if (resultCode != Activity.RESULT_OK) {
+      return;
+   }
+   String opponent_nickname = data.getExtras().getString("opponent_nickname");
+   setNickname(opponent_nickname);
+   }
+}
+```
 
 ## 6. 채팅목록
 <img src="https://user-images.githubusercontent.com/92709137/138554811-1dfc6c86-f497-43e3-a92f-d59bc774c78f.png" width="45%"/>
@@ -316,6 +336,29 @@ private void setInfoXML(JSONObject obj) {
 
 * 서버에서 제목과 내용을 입력 후 전송하면 현재 접속해 있는 모든 클라이언트들에게 내용을 전달합니다.
 * 자세한 서버의 구동내용은 HereHelp_Server repo에서 기술하겠습니다.
+
+## 히스토리
+> 1. Gson 라이브러리   
+> 전에 서버관련 프로젝트를 할 때는 데이터를 string으로 주고받고 데이터 사이사이에 '#'을 넣어 파싱을 subString으로 했었는데 이번에 처음으로 JSON을 사용했었다.
+> 서버에서 마커의 위,경도를 해당 ID랑 묶어 HashMamp으로 저장하는데 JSON 데이터를 Log로 확인해보았더니 HashMap이랑 형태가 같아 그대로 전송 후 JSON파싱 방식으로 했었지만 에러가 발생했다.
+> HashMap데이터를 서버에서 일일이 String으로 변환하고 다시 JSON에 담아야 하나 생각을 했었지만 뭔가 형태가 같으니 방법이 있을 것 같아 구글링을 하였고 GSON이라는 라이브러리를 통해 Object를
+> JSON 문자열로 변환하는 법을 알아내어 효율적으로 처리하였다.
+
+> 2. Thread   
+> 원래는 데이터를 받아 처리해야하는 액티비티들은 각각 스레드를 키고 BufferedReader로 받아왔었다. 다른 액티비티들은 그냥 데이터를 받기만 하면 끝나는 형태라 별 문제가 없었는데
+> 실시간으로 데이터를 받아야 하는 BufferedReaderd는 while문 안에 있고 Main액티비티 안에서 동작중이었는데 로그아웃화면으로 넘어가면 Main액티비티를 finish하니 자동으로 while문도 끝날 줄
+> 알았는데 죽지않고 살아있어서 이 후 데이터를 수신하는 과정에서 장애가 발생했었다. 처음에는 그냥 컴퓨터 문제인줄 알았는데 테스트겸 계속 로그아웃 로그인을
+> 반복하니 서버와 통신이 점점 불량이 되어가 문제가 있음을 느꼈다. 근데 문제를 인식만하고 원인은 도저히 알 수가 없어 하루종일 모니터만 본 기억이 난다. 그러다 Log를 계속 확인하는 도중 혹시
+> while문이 계속 살아있나?를 생각해보고 while문을 지워본 결과 문제가 해결되어 액티비티를 finish해도 스레드는 살아있구나를 이 때 알게되었고 그럼 액티비티가 종료되도 스레드는 살아있으니까
+> 데이터 수신은 while문 한 곳에서 통합적으로 받을 수 있게 코드를 수정하였다.
+
+> 3. 채팅 및 활동 내역 데이터 저장 방법   
+> 앱에 접속하면 전에 대화했던 채팅 내용들이나 활동내역들을 불러와야하는데 첨엔 막연히 데이터베이스에 저장하면 되겠지라는 생각을 하고 있었다. 근데 막상 코드를 작성하려고 하니 내가 아는
+> 관계형 데이터베이스는 같은 데이터를 반복적으로 저장하기에 적합하지 않다는 생각이 들었다. 한 아이디에 채팅내용을 저장하려면 칼럼을 수 도없이 생성했어야 하니까. 그래서 안드로이드 채팅관련 
+> 어플은 어떤방식으로 동작하나 봤었는데 firebase라는 프로그램을 사용하여 채팅앱을 제작한 글들이 많았다. 근데 대부분의 글들이 안드로이드(클라이언트)에서 firebase로 접속하는 방식이라
+> 뭔가 서버가 2개가 된 느낌이 들어 이건 아니다 라고 생각을 하였고 반복된 데이터를 저장하는건 어떤 방식이 좋을까 생각하며 또 모니터만 몇시간 바라보다가 떠오른게 XML파일 이었다.
+> 채팅하나당 노드를 생성하면 뭔가 될 것 같아 한 번 써보기로 했었다. XML도 보기만하고 이번에 처음 써본 언어라 우여곡절이 많았지만 아무쪼록 성공은 한 듯하다. 이 건 서버에서 다루는거라
+> 서버 repo에서 추가적으로 작성할 예정이다.
 
 ## 참고 어플
 > 당근마켓
