@@ -49,6 +49,7 @@
 
 7. 활동내역
 
+8. 서버 
 ## 1. 로그인 및 회원가입
 
 > **1-1. 로그인**
@@ -89,6 +90,8 @@ editor.commit();
 </p>
 
 * 로그인 시 현재 위치를 기반으로 카메라가 설정되고 다른 사용자들이 등록한 마커가 보여집니다.
+* 좌측상단의 버튼은 메뉴목록을 보여주는 버튼입니다.
+* 우측상단의 버튼은 현재위치로 카메라를 이동하는 버튼입니다.
 
 <p align="left">
 <img src="https://user-images.githubusercontent.com/92709137/138476882-d2c517da-aec9-4a1b-a52a-27f6f07be1b5.png" width="45%"/>
@@ -160,4 +163,10 @@ else
 
 * 현재까지 활동 내역을 볼 수 있는 기능입니다. 내역 별 우측 하단에 총 지출 및 수익금이 표시되어있습니다.
 
-## 
+## 8. 서버 공지
+<img src="https://user-images.githubusercontent.com/92709137/138567497-e8544412-c8a4-41de-8389-7093fcc9c404.PNG" width="45%"/>
+<img src="https://user-images.githubusercontent.com/92709137/138567490-01cc72d3-3c27-4983-b6b2-be8394aad2d7.png" width="45%"/>
+
+* 서버에서 제목과 내용을 입력 후 전송하면 현재 접속해 있는 모든 클라이언트들에게 내용을 전달합니다.
+* 자세한 서버의 구동내용은 HereHelp_Server repo에서 기술하겠습니다.
+
