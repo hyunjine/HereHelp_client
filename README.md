@@ -65,57 +65,58 @@
 
 ```java
 while (Data.socket.isConnected()) {
-                String fromServer = in.readLine();
+   // string 변환
+   String fromServer = in.readLine();
 
-                JSONObject obj = new JSONObject(fromServer);
-                String flag = obj.getString("flag");
-
-                switch (flag) {
-                    case "idCheck":
-                        ((CreateAccount) Data.accountContext).idCheck(obj);
-                        break;
-                    case "nicknameCheck":
-                        ((CreateAccount) Data.accountContext).nicknameCheck(obj);
-                        break;
-                    case "createAccountCheck":
-                        ((CreateAccount) Data.accountContext).createAccountCheck(obj);
-                        break;
-                    case "login":
-                        login(obj);
-                        break;
-                    case "init":
-                        init(obj);
-                        break;
-                    case "helpRequest":
-                        helpRequest(obj);
-                        break;
-                    case "completeHelp":
-                        completeHelp(obj);
-                        break;
-                    case "completeTransaction":
-                        completeTransaction(obj);
-                        break;
-                    case "markerClicked":
-                        markerClicked(obj);
-                        break;
-                    case "chatting":
-                        chatting(obj);
-                        break;
-                    case "selectType":
-                        selectType(obj);
-                        break;
-                    case "selectPrice":
-                        selectPrice(obj);
-                        break;
-                    case "getContent":
-                        getContent(obj);
-                        break;
-                    case "notice":
-                        notice(obj);
-                        break;
-                    default:
-                        break;
-                }
+   JSONObject obj = new JSONObject(fromServer);
+   String flag = obj.getString("flag");
+   // 타입별 
+   switch (flag) {
+      case "idCheck":
+         ((CreateAccount) Data.accountContext).idCheck(obj);
+         break;
+      case "nicknameCheck":
+         ((CreateAccount) Data.accountContext).nicknameCheck(obj);
+         break;
+      case "createAccountCheck":
+         ((CreateAccount) Data.accountContext).createAccountCheck(obj);
+         break;
+      case "login":
+         login(obj);
+         break;
+      case "init":
+         init(obj);
+         break;
+      case "helpRequest":
+         helpRequest(obj);
+         break;
+      case "completeHelp":
+         completeHelp(obj);
+         break;
+      case "completeTransaction":   
+         completeTransaction(obj);
+         break;
+      case "markerClicked":
+         markerClicked(obj);
+         break;
+      case "chatting":
+         chatting(obj);
+         break;
+      case "selectType":
+         selectType(obj);
+         break;
+      case "selectPrice":
+         selectPrice(obj);
+         break;
+      case "getContent":
+         getContent(obj);
+         break;
+      case "notice":
+         notice(obj);
+         break;
+      default:
+         break;
+      }
 }
     
 ```
@@ -129,6 +130,7 @@ while (Data.socket.isConnected()) {
 // 자동 로그인
 SharedPreferences pref = getSharedPreferences("autoLogin", MODE_PRIVATE);
 SharedPreferences.Editor editor = pref.edit();
+// 상태 초기화
 editor.clear();
 // 자동 로그인 체크
 if (isAutoLogin) {
@@ -169,10 +171,10 @@ private void setMarkers(JSONObject markers) {
 
             for (Object id : map.keySet()) {
                 Object location = map.get(id);
-
+                // location이 String형태고 위도와 경도가 '#'으로 나눠져 있어 파싱하는 코드
                 double latitude = returnLatitude(location.toString());
                 double longtitude = returnLongtitude(location.toString());
-
+                // 맵에 마커 
                 markerMethod.setMarker(id.toString(), latitude, longtitude);
             }
         } catch (Exception e) {
@@ -242,9 +244,9 @@ else
 * 계정 선택 액티비티에서 선택 결과를 onActivityResult메서드로 받아와 처리하였습니다
 ```java
 public void selectItem(String opponent_nickname) {
-   intent.putExtra("opponent_nickname" , opponent_nickname); //사용자에게 입력받은값 넣기
-   setResult(RESULT_OK, intent); //결과를 저장
-   finish();//액티비티 종료
+   intent.putExtra("opponent_nickname" , opponent_nickname);
+   setResult(RESULT_OK, intent);
+   finish();
 }
     
 @Override
@@ -270,6 +272,7 @@ if (requestCode == 100) {
 private void setChatXML(JSONArray xml) {
         try {
             for (int i = 0; i < xml.length(); i++) {
+                // array별 데이터 
                 String opponent_id = xml.getJSONObject(i).getString("opponent_id");
                 String opponent_nickname = xml.getJSONObject(i).getString("opponent_nickname");
                 JSONArray chattingXML = xml.getJSONObject(i).getJSONArray("chattingXML");
@@ -357,7 +360,7 @@ private void setInfoXML(JSONObject obj) {
 > 관계형 데이터베이스는 같은 데이터를 반복적으로 저장하기에 적합하지 않다는 생각이 들었다. 한 아이디에 채팅내용을 저장하려면 칼럼을 수 도없이 생성했어야 하니까. 그래서 안드로이드 채팅관련 
 > 어플은 어떤방식으로 동작하나 봤었는데 firebase라는 프로그램을 사용하여 채팅앱을 제작한 글들이 많았다. 근데 대부분의 글들이 안드로이드(클라이언트)에서 firebase로 접속하는 방식이라
 > 뭔가 서버가 2개가 된 느낌이 들어 이건 아니다 라고 생각을 하였고 반복된 데이터를 저장하는건 어떤 방식이 좋을까 생각하며 또 모니터만 몇시간 바라보다가 떠오른게 XML파일 이었다.
-> 채팅하나당 노드를 생성하면 뭔가 될 것 같아 한 번 써보기로 했었다. XML도 보기만하고 이번에 처음 써본 언어라 우여곡절이 많았지만 아무쪼록 성공은 한 듯하다. 이 건 서버에서 다루는거라
+> 채팅하나당 노드를 생성하면 뭔가 될 것 같아 한 번 써보기로 했었다. XML도 보기만하고 이번에 처음 써본 언어라 우여곡절이 많았지만 아무쪼록 성공은 한 듯하다. 이 데이터는 서버에서 다루는거라
 > 서버 repo에서 추가적으로 작성할 예정이다.
 
 ## 참고 어플
