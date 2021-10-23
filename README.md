@@ -82,8 +82,8 @@ editor.commit();
 ## 2. 메인화면
 
 <p align="left">
-<img src="https://user-images.githubusercontent.com/92709137/138476866-b25b4cf7-4a1b-43c4-a078-d9936f06c3c0.png" width="450"/>
-<img src="https://user-images.githubusercontent.com/92709137/138476883-78f5cdf1-16aa-4686-a9b4-c33828782ec4.png" width="450"/>
+<img src="https://user-images.githubusercontent.com/92709137/138476866-b25b4cf7-4a1b-43c4-a078-d9936f06c3c0.png" width="45%"/>
+<img src="https://user-images.githubusercontent.com/92709137/138476883-78f5cdf1-16aa-4686-a9b4-c33828782ec4.png" width="45%"/>
 </p>
 
 * 로그인 시 현재 위치를 기반으로 카메라가 설정되고 다른 사용자들이 등록한 마커가 보여집니다.
@@ -96,18 +96,18 @@ editor.commit();
 * 우측하단 +모양 버튼을 누르면 유형, 가격별 카테고리를 설정하여 원하는 마커만 볼 수 있습니다.
 
 ## 메뉴 목록
-<img src="https://user-images.githubusercontent.com/92709137/138462672-a096ad9c-7be7-4267-8757-4274f2d1ee60.png" width="450"/>
+<img src="https://user-images.githubusercontent.com/92709137/138462672-a096ad9c-7be7-4267-8757-4274f2d1ee60.png" width="50%"/>
 
 ## 3. 로그아웃
 * 로그인화면으로 전환됩니다.
 
 ## 4. 도움요청
 <p align="left">
-<img src="https://user-images.githubusercontent.com/92709137/138554974-af73e4b9-076a-44e4-b382-5d594a692d5f.png" width="450"/>
-<img src="https://user-images.githubusercontent.com/92709137/138554819-404ad65c-4bd0-4d6f-8ae0-46ea6f26edd5.png" width="450"/>
+<img src="https://user-images.githubusercontent.com/92709137/138554974-af73e4b9-076a-44e4-b382-5d594a692d5f.png" width="45%"/>
+<img src="https://user-images.githubusercontent.com/92709137/138554819-404ad65c-4bd0-4d6f-8ae0-46ea6f26edd5.png" width="45%"/>
 </p>
 <p align="center">
-<img src="https://user-images.githubusercontent.com/92709137/138554816-194aa60a-6c61-48e3-9a28-98dcd98567a5.png" width="450"/>
+<img src="https://user-images.githubusercontent.com/92709137/138554816-194aa60a-6c61-48e3-9a28-98dcd98567a5.png" width="50%"/>
 </p>
 
 * 상단부터 금액제시, 카테고리 설정, 글 내용을 입력 후 하단의 등록버튼을 통해 글을 등록합니다.
@@ -128,32 +128,32 @@ else
 ```
 * 상대방이 마커를 클릭한 후 도움을 줄 수 있다는 생각이 들면 연락버튼을 눌러 해당 글 작성자와 채팅을 할 수 있습니다.
 <p align="left">
-<img src="https://user-images.githubusercontent.com/92709137/138554806-2b997a5f-9c4d-47c2-8527-47ea71be38a7.png" width="450"/>
-<img src="https://user-images.githubusercontent.com/92709137/138554809-e830ff49-c77d-4bc2-a8ac-0dd0e96770f7.png" width="450"/>
+<img src="https://user-images.githubusercontent.com/92709137/138554806-2b997a5f-9c4d-47c2-8527-47ea71be38a7.png" width="45%"/>
+<img src="https://user-images.githubusercontent.com/92709137/138554809-e830ff49-c77d-4bc2-a8ac-0dd0e96770f7.png" width="45%"/>
 </p>
 
 ## 5. 도움완료
-<img src="https://user-images.githubusercontent.com/92709137/138554820-9294deb3-a6e1-4e29-ae12-ce180d2d68ca.png" width="450"/>
+<img src="https://user-images.githubusercontent.com/92709137/138554820-9294deb3-a6e1-4e29-ae12-ce180d2d68ca.png" width="45%"/>
 
 * 등록해제는 등록된 마커와 글을 삭제하는 기능입니다.
 
 <p align="left">
-<img src="https://user-images.githubusercontent.com/92709137/138555619-cf883619-e5e7-4385-9ff8-c64e01924d65.png" width="33%"/>
-<img src="https://user-images.githubusercontent.com/92709137/138555621-1027e3a7-505b-4bfb-bcfd-6671ed63a75f.png" width="33%"/>
-<img src="https://user-images.githubusercontent.com/92709137/138554812-3161b0b9-3da1-4b79-a560-bc2897065bf5.png" width="33%"/>
+<img src="https://user-images.githubusercontent.com/92709137/138555619-cf883619-e5e7-4385-9ff8-c64e01924d65.png" width="30%"/>
+<img src="https://user-images.githubusercontent.com/92709137/138555621-1027e3a7-505b-4bfb-bcfd-6671ed63a75f.png" width="30%"/>
+<img src="https://user-images.githubusercontent.com/92709137/138554812-3161b0b9-3da1-4b79-a560-bc2897065bf5.png" width="30%"/>
 </p>
 
 * 거래 완료는 사용자끼리 만나 도움을 주고 받으면 글 작성자가 거래완료 버튼을 눌러 도움을 준 계정을 선택해 저장하는 기능입니다.
 
 ## 6. 채팅목록
-<img src="https://user-images.githubusercontent.com/92709137/138554811-1dfc6c86-f497-43e3-a92f-d59bc774c78f.png" width="450"/>
+<img src="https://user-images.githubusercontent.com/92709137/138554811-1dfc6c86-f497-43e3-a92f-d59bc774c78f.png" width="45%"/>
 
 * 채팅목록을 볼 수 있는 기능입니다.
 
 ## 7. 활동내역
 <p align="left">
-<img src="https://user-images.githubusercontent.com/92709137/138554813-9e582d38-85f5-4a87-ae54-f0a36eb1c2fb.png" width="450"/>
-<img src="https://user-images.githubusercontent.com/92709137/138554815-887b4008-545f-4684-8079-14bc36338545.png" width="450"/>
+<img src="https://user-images.githubusercontent.com/92709137/138554813-9e582d38-85f5-4a87-ae54-f0a36eb1c2fb.png" width="45%"/>
+<img src="https://user-images.githubusercontent.com/92709137/138554815-887b4008-545f-4684-8079-14bc36338545.png" width="45%"/>
 </p>
 
 * 현재까지 활동 내역을 볼 수 있는 기능입니다. 내역 별 우측 하단에 총 지출 및 수익금이 표시되어있습니다.
