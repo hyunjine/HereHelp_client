@@ -61,6 +61,64 @@
 8. 서버 
 
 ## 1. 로그인 및 회원가입
+* 앱 실행 시 ReceiveDataThread클래스가 생성되어 데이터를 받게 설정했습니다.
+
+```java
+while (Data.socket.isConnected()) {
+                String fromServer = in.readLine();
+
+                JSONObject obj = new JSONObject(fromServer);
+                String flag = obj.getString("flag");
+
+                switch (flag) {
+                    case "idCheck":
+                        ((CreateAccount) Data.accountContext).idCheck(obj);
+                        break;
+                    case "nicknameCheck":
+                        ((CreateAccount) Data.accountContext).nicknameCheck(obj);
+                        break;
+                    case "createAccountCheck":
+                        ((CreateAccount) Data.accountContext).createAccountCheck(obj);
+                        break;
+                    case "login":
+                        login(obj);
+                        break;
+                    case "init":
+                        init(obj);
+                        break;
+                    case "helpRequest":
+                        helpRequest(obj);
+                        break;
+                    case "completeHelp":
+                        completeHelp(obj);
+                        break;
+                    case "completeTransaction":
+                        completeTransaction(obj);
+                        break;
+                    case "markerClicked":
+                        markerClicked(obj);
+                        break;
+                    case "chatting":
+                        chatting(obj);
+                        break;
+                    case "selectType":
+                        selectType(obj);
+                        break;
+                    case "selectPrice":
+                        selectPrice(obj);
+                        break;
+                    case "getContent":
+                        getContent(obj);
+                        break;
+                    case "notice":
+                        notice(obj);
+                        break;
+                    default:
+                        break;
+                }
+}
+    
+```
 
 > **1-1. 로그인**
 <img src="https://user-images.githubusercontent.com/92709137/138470161-81451897-85f5-486e-8c93-5790145fff22.png" width="50%"/>
@@ -100,6 +158,27 @@ editor.commit();
 </p>
 
 * 로그인 시 현재 위치를 기반으로 카메라가 설정되고 다른 사용자들이 등록한 마커가 보여집니다.
+* 마커는 앱 실행 시 또는 추가적인 등록이 있을 때 마다 서버에서 등록된 아이디와 위치를 받아 파싱하여 표시합니다
+```java
+private void setMarkers(JSONObject markers) {
+        try {
+            Gson gson = new Gson();
+            HashMap map = new HashMap();
+            map = (HashMap) gson.fromJson(markers.toString(), map.getClass());
+
+            for (Object id : map.keySet()) {
+                Object location = map.get(id);
+
+                double latitude = returnLatitude(location.toString());
+                double longtitude = returnLongtitude(location.toString());
+
+                markerMethod.setMarker(id.toString(), latitude, longtitude);
+            }
+        } catch (Exception e) {
+            Data.printError(e);
+        }
+    }
+```
 * 좌측상단의 버튼은 메뉴목록을 보여주는 버튼입니다.
 * 우측상단의 버튼은 현재위치로 카메라를 이동하는 버튼입니다.
 
@@ -164,6 +243,36 @@ else
 <img src="https://user-images.githubusercontent.com/92709137/138554811-1dfc6c86-f497-43e3-a92f-d59bc774c78f.png" width="45%"/>
 
 * 채팅목록을 볼 수 있는 기능입니다.
+* 채팅목록과 채팅 내용은 앱 실행 시 또는 추가 채팅이 발생할 때마다 서버에서 데이터를 받아 파싱합니다.
+* 서버에서 XML파일로 데이터가 저장되어 있습니다.
+```java
+private void setChatXML(JSONArray xml) {
+        try {
+            for (int i = 0; i < xml.length(); i++) {
+                String opponent_id = xml.getJSONObject(i).getString("opponent_id");
+                String opponent_nickname = xml.getJSONObject(i).getString("opponent_nickname");
+                JSONArray chattingXML = xml.getJSONObject(i).getJSONArray("chattingXML");
+                JSONArray timeXML = xml.getJSONObject(i).getJSONArray("timeXML");
+                ArrayList<Chat_Item> item = new ArrayList<>();
+
+                for (int j = 0; j < chattingXML.length(); j++) {
+                    String id = chattingXML.getJSONObject(j).getString("id");
+                    String time = timeXML.getJSONObject(j).getString("time");
+                    String msg = chattingXML.getJSONObject(j).getString("msg");
+                    // 나의 채팅일 때
+                    if (id.equals(Data.my_id))
+                        item.add(new Chat_Item(Data.my_nickname, msg, time, Data.ViewType.MY_MESSAGE, opponent_nickname));
+                    // 상대방의 채팅일 때
+                    else if (id.equals(opponent_id))
+                        item.add(new Chat_Item(opponent_nickname, msg, time, Data.ViewType.OPPONENT_MESSAGE, opponent_nickname));
+                }
+                Data.chatData.put(opponent_id, item);
+            }
+        } catch (Exception e) {
+            Data.printError(e);
+        }
+    }
+```
 
 ## 7. 활동내역
 <p align="left">
@@ -172,6 +281,33 @@ else
 </p>
 
 * 현재까지 활동 내역을 볼 수 있는 기능입니다. 내역 별 우측 하단에 총 지출 및 수익금이 표시되어있습니다.
+* 활동내역은 앱 실행 시 또는 추가적인 거래완료가 이뤄질 때 마다 서버에서 데이터를 받아와 파싱합니다.
+* 서버에서 XML파일로 데이터가 저장되어 있습니다.
+```java
+private void setInfoXML(JSONObject obj) {
+        try {
+            JSONArray arrReceive = obj.getJSONArray("arrReceive");
+            for (int i = 0; i < arrReceive.length(); i++) {
+                String id = arrReceive.getJSONObject(i).getString("opponent_nickname");
+                String time = arrReceive.getJSONObject(i).getString("time");
+                int category = Integer.parseInt(arrReceive.getJSONObject(i).getString("category"));
+                String price = arrReceive.getJSONObject(i).getString("price");
+                Data.infoReceive.add(new Info_Item(id, category, price, time));
+            }
+            JSONArray arrGive = obj.getJSONArray("arrGive");
+            for (int i = 0; i < arrGive.length(); i++) {
+                String id = arrGive.getJSONObject(i).getString("opponent_nickname");
+                String time = arrGive.getJSONObject(i).getString("time");
+                int category = Integer.parseInt(arrGive.getJSONObject(i).getString("category"));
+                String price = arrGive.getJSONObject(i).getString("price");
+                Data.infoGive.add(new Info_Item(id, category, price, time));
+            }
+
+        } catch (Exception e) {
+            Data.printError(e);
+        }
+    }
+```
 
 ## 8. 서버 공지
 <img src="https://user-images.githubusercontent.com/92709137/138567497-e8544412-c8a4-41de-8389-7093fcc9c404.PNG" width="45%"/>
