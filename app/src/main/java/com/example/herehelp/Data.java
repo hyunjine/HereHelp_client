@@ -23,9 +23,9 @@ public class Data {
     // 소켓
     public static Socket socket;
     // IP
-    public static String SERVER_IP = "192.168.1.39";
+    public static String SERVER_IP = "My ip";
     // PORT
-    public static int SERVER_PORT = 3000;
+    public static int SERVER_PORT = 0000;
     // 서버 데이터 전송
     public static void sendToServer(JSONObject obj) {
         new Thread() {
