@@ -49,6 +49,7 @@ public class Main extends AppCompatActivity implements AutoPermissionsListener, 
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
     private static final int PERMISSIONS_REQUEST_CODE = 100;
     String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -163,7 +164,7 @@ public class Main extends AppCompatActivity implements AutoPermissionsListener, 
         btn_selectPrice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Category_Price(Main.this).show();;
+                new Category_Price(Main.this).show();
             }
         });
         // 카테고리 버튼
@@ -191,6 +192,7 @@ public class Main extends AppCompatActivity implements AutoPermissionsListener, 
             }
         });
     }
+
     /*
     채팅창으로 전환
      */
@@ -205,6 +207,7 @@ public class Main extends AppCompatActivity implements AutoPermissionsListener, 
             }
         });
     }
+
     /*
     도움 완료창으로 전환
      */
@@ -218,27 +221,27 @@ public class Main extends AppCompatActivity implements AutoPermissionsListener, 
             }
         });
     }
+
     /*
     마커 클릭
      */
     @Override
     public boolean onMarkerClick(@NonNull Marker marker) {
-        String opponent_id = getKey(Data.clientMarkers, marker);
-
-        if (opponent_id == null) {
-            Toast.makeText(Main.this, "완료된 항목입니다", Toast.LENGTH_SHORT).show();
-            return false;
-        }
         try {
-            JSONObject obj = new JSONObject();
-            obj.put("flag", "markerClicked");
-            obj.put("opponent_id", opponent_id);
-            Data.sendToServer(obj);
-            return false;
+            String opponent_id = getKey(Data.clientMarkers, marker);
+            if (opponent_id == null) {
+                Toast.makeText(Main.this, "완료된 항목입니다", Toast.LENGTH_SHORT).show();
+            } else {
+                JSONObject obj = new JSONObject();
+                obj.put("flag", "markerClicked");
+                obj.put("opponent_id", opponent_id);
+                Data.sendToServer(obj);
+            }
+
         } catch (Exception e) {
             Data.printError(e);
-            return false;
         }
+        return false;
     }
     /*
     marker로 key값 찾기
@@ -259,6 +262,7 @@ public class Main extends AppCompatActivity implements AutoPermissionsListener, 
         LatLng curPoint = new LatLng(gps.getLatitude(), gps.getLongitude());
         Data.map.animateCamera(CameraUpdateFactory.newLatLngZoom(curPoint, 17));
     }
+
     /*
     초기 시작 현재 위치
      */
@@ -267,6 +271,7 @@ public class Main extends AppCompatActivity implements AutoPermissionsListener, 
         LatLng curPoint = new LatLng(gps.getLatitude(), gps.getLongitude());
         Data.map.moveCamera(CameraUpdateFactory.newLatLngZoom(curPoint, 17));
     }
+
     /*
     마커 클릭 시 하단 다이얼로그
      */
@@ -279,6 +284,7 @@ public class Main extends AppCompatActivity implements AutoPermissionsListener, 
             }
         });
     }
+
     /*
     토스트 메세지
      */
@@ -302,6 +308,7 @@ public class Main extends AppCompatActivity implements AutoPermissionsListener, 
             }
         });
     }
+
     /*
     공지
      */
@@ -345,6 +352,7 @@ public class Main extends AppCompatActivity implements AutoPermissionsListener, 
 //            Data.printError(e);
 //        }
     }
+
     /*
     권한 처리 함수
      */

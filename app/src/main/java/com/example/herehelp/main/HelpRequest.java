@@ -76,8 +76,8 @@ public class HelpRequest extends AppCompatActivity {
                     String content = et_content.getText().toString();
                     String price = et_price.getText().toString().trim();
 
-                    double latitude = new GpsTracker(HelpRequest.this).getLatitude();
-                    double longitude = new GpsTracker(HelpRequest.this).getLongitude();
+                    double latitude = new GpsTracker((Main) Data.mainContext).getLatitude();
+                    double longitude = new GpsTracker((Main) Data.mainContext).getLongitude();
                     String loc = latitude + "#" + longitude;
 
                     JSONObject data = new JSONObject();

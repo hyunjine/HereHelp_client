@@ -41,19 +41,14 @@ public class ChattingListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
         Object[] keys = Data.chatData.keySet().toArray();
-        ((ChattingListAdapter.chattingListViewHolder) viewHolder).tv_nickname.setText(Data.chatData.get(keys[position]).get(0).getOpponent_nickname());
+        ((ChattingListAdapter.chattingListViewHolder) viewHolder).tv_nickname.setText(Data.idToNickname.get(keys[position].toString()));
         ((ChattingListAdapter.chattingListViewHolder) viewHolder).tv_lastMsg.setText(Data.chatData.get(keys[position]).get(Data.chatData.get(keys[position]).size() - 1).getMsg());
         // 날짜 포맷 변경
         ((ChattingListAdapter.chattingListViewHolder) viewHolder).tv_lastTime.setText(convertDataFormat(keys, position));
         ((chattingListViewHolder) viewHolder).itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // CompleteHelp에서 호출 시
-                if (flag.equals("CompleteHelp"))
-                    ((CompleteHelp) context).setNickname(Data.chatData.get(keys[position]).get(0).getOpponent_nickname());
-                // ChattingList에서 호출 시
-                else if (flag.equals("ChattingList"))
-                    ((ChattingList) context).goToChatting(keys[position].toString(), Data.chatData.get(keys[position]).get(0).getOpponent_nickname());
+                ((ChattingList) context).goToChatting(keys[position].toString(), Data.idToNickname.get(keys[position].toString()));
             }
         });
     }

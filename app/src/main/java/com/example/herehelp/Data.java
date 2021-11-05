@@ -3,7 +3,7 @@ package com.example.herehelp;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.herehelp.activity_record.Info_Item;
+import com.example.herehelp.activity_record.Record_Item;
 import com.example.herehelp.chatting.Chat_Item;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
@@ -42,11 +42,13 @@ public class Data {
     }
     // 채팅내용 String = id, ArrayList = 채팅 내용
     public static HashMap<String, ArrayList<Chat_Item>> chatData = new HashMap<>();
+    // 상대방 닉네임 String = id, String = nickname
+    public static HashMap<String, String> idToNickname = new HashMap<>();
     // 활동내용 String = id, ArrayList = 활동 내용
-    public static ArrayList<Info_Item> infoGive = new ArrayList<>();
+    public static ArrayList<Record_Item> infoGive = new ArrayList<>();
     // 활동내용 String = id, ArrayList = 활동 내용
-    public static ArrayList<Info_Item> infoReceive = new ArrayList<>();
-    // 마커 정보
+    public static ArrayList<Record_Item> infoReceive = new ArrayList<>();
+    // 마커 정보 String = id, Marker
     public static HashMap<String, Marker> clientMarkers = new HashMap<String, Marker>();
     // 뷰타입
     public class ViewType {

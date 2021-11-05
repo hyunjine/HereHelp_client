@@ -21,10 +21,10 @@ import java.util.Date;
 
 public class ActivityRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
-    private ArrayList<Info_Item> arrayList;
+    private ArrayList<Record_Item> arrayList;
     private String sign;
 
-    public ActivityRecordAdapter(ArrayList<Info_Item> arr, String sign) {
+    public ActivityRecordAdapter(ArrayList<Record_Item> arr, String sign) {
         this.arrayList = arr;
         this.sign = sign;
     }
@@ -43,7 +43,7 @@ public class ActivityRecordAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-        ((ActivityRecordViewHolder) viewHolder).tv_opponent.setText(arrayList.get(position).getID());
+        ((ActivityRecordViewHolder) viewHolder).tv_opponent.setText(arrayList.get(position).getNickname());
         ((ActivityRecordViewHolder) viewHolder).tv_category.setText("#" + Data.items[arrayList.get(position).getCategory()]);
         ((ActivityRecordViewHolder) viewHolder).tv_price.setText(sign + new DecimalFormat("###,###").format(Integer.parseInt(arrayList.get(position).getPrice())) + "원");
         ((ActivityRecordViewHolder) viewHolder).tv_time.setText(convertDataFormat(arrayList.get(position).getTime()));

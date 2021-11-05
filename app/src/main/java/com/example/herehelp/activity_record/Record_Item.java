@@ -1,20 +1,21 @@
 package com.example.herehelp.activity_record;
 
-public class Info_Item {
+public class Record_Item {
 
-    private String id;
+    private String nickname;
     private int category;
     private String price;
     private String time;
 
-    public Info_Item(String id, int category, String price, String time) {
-        this.id = id;
+    public Record_Item(String nickname, int category, String price, String time) {
+        this.nickname = nickname;
         this.category = category;
         this.price = price;
         this.time = time;
     }
-    public String getID() {
-        return id;
+
+    public String getNickname() {
+        return nickname;
     }
 
     public int getCategory() {

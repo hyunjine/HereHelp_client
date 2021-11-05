@@ -11,7 +11,7 @@ import android.util.Log;
 import androidx.annotation.RequiresApi;
 
 import com.example.herehelp.Data;
-import com.example.herehelp.activity_record.Info_Item;
+import com.example.herehelp.activity_record.Record_Item;
 import com.example.herehelp.chatting.Chat_Item;
 import com.example.herehelp.chatting.ChattingList;
 import com.example.herehelp.chatting.ChattingWindow;
@@ -19,7 +19,6 @@ import com.example.herehelp.chatting.PopupChatting;
 import com.example.herehelp.init.CreateAccount;
 import com.example.herehelp.init.Intro;
 import com.example.herehelp.init.Login;
-import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,7 +28,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -50,6 +48,7 @@ public class ReceiveDataThread extends Thread {
                 String fromServer = in.readLine();
 
                 JSONObject obj = new JSONObject(fromServer);
+                Log.d(TAG, fromServer);
                 String flag = obj.getString("flag");
 
                 switch (flag) {
@@ -83,11 +82,8 @@ public class ReceiveDataThread extends Thread {
                     case "chatting":
                         chatting(obj);
                         break;
-                    case "selectType":
-                        selectType(obj);
-                        break;
-                    case "selectPrice":
-                        selectPrice(obj);
+                    case "selectCetegory":
+                        selectCetegory(obj);
                         break;
                     case "getContent":
                         getContent(obj);
@@ -156,13 +152,14 @@ public class ReceiveDataThread extends Thread {
      */
     private void init(JSONObject obj) {
         try {
-            JSONArray xml = obj.getJSONArray("xml");
-            JSONObject marker = obj.getJSONObject("marker");
-            JSONObject infoXML = obj.getJSONObject("infoXML");
-            Log.d("tag", infoXML.toString());
-            setMarkers(marker);
-            setAllXML(xml);
-            setInfoXML(infoXML);
+            JSONArray marker = obj.getJSONArray("marker");
+            Log.d(TAG, marker.toString());
+            JSONArray chatXML = obj.getJSONArray("chatXML");
+            JSONObject recordXML = obj.getJSONObject("recordXML");
+
+            setMarker(marker);
+            setChatXML(chatXML);
+            setRecordXML(recordXML);
         } catch (Exception e) {
             Data.printError(e);
         }
@@ -170,30 +167,23 @@ public class ReceiveDataThread extends Thread {
     /*
     setMarkers  메서드
     */
-    private void setMarkers(JSONObject markers) {
+    private void setMarker(JSONArray marker) {
         try {
-            Gson gson = new Gson();
-            HashMap map = new HashMap();
-            map = (HashMap) gson.fromJson(markers.toString(), map.getClass());
-
-            for (Object id : map.keySet()) {
-                Object location = map.get(id);
-
-                double latitude = returnLatitude(location.toString());
-                double longtitude = returnLongtitude(location.toString());
-
-                markerMethod.setMarker(id.toString(), latitude, longtitude);
+            for (int i = 0; i < marker.length(); i++) {
+                String id = marker.getJSONObject(i).getString("id");
+                String location = marker.getJSONObject(i).getString("location");
+                markerMethod.setMarker(id, getLatitude(location), getLongtitude(location));
             }
         } catch (Exception e) {
             Data.printError(e);
         }
     }
-    private Double returnLatitude(String location) {
+    private Double getLatitude(String location) {
         String[] loc = location.toString().split("#");
         double latitude = Double.parseDouble(loc[0]);
         return latitude;
     }
-    private Double returnLongtitude(String location) {
+    private Double getLongtitude(String location) {
         String[] loc = location.toString().split("#");
         double longitude = Double.parseDouble(loc[1]);
         return longitude;
@@ -201,27 +191,30 @@ public class ReceiveDataThread extends Thread {
     /*
     setAllXML 메서드
      */
-    private void setAllXML(JSONArray xml) {
+    private void setChatXML(JSONArray chatXML) {
         try {
-            for (int i = 0; i < xml.length(); i++) {
-                String opponent_id = xml.getJSONObject(i).getString("opponent_id");
-                String opponent_nickname = xml.getJSONObject(i).getString("opponent_nickname");
-                JSONArray chattingXML = xml.getJSONObject(i).getJSONArray("chattingXML");
-                JSONArray timeXML = xml.getJSONObject(i).getJSONArray("timeXML");
+            for (int i = 0; i < chatXML.length(); i++) {
+                String opponent_id = chatXML.getJSONObject(i).getString("opponent_id");
+                String opponent_nickname = chatXML.getJSONObject(i).getString("opponent_nickname");
+                JSONArray msgXML = chatXML.getJSONObject(i).getJSONArray("msgXML");
+                JSONArray timeXML = chatXML.getJSONObject(i).getJSONArray("timeXML");
+
                 ArrayList<Chat_Item> item = new ArrayList<>();
 
-                for (int j = 0; j < chattingXML.length(); j++) {
-                    String id = chattingXML.getJSONObject(j).getString("id");
-                    String time = timeXML.getJSONObject(j).getString("time");
-                    String msg = chattingXML.getJSONObject(j).getString("msg");
+                for (int j = 0; j < msgXML.length(); j++) {
+                    String id = msgXML.getJSONObject(j).getString("id");
+                    String msg = msgXML.getJSONObject(j).getString("msg");
+                    String time = timeXML.getString(j);
+
                     // 나의 채팅일 때
                     if (id.equals(Data.my_id))
-                        item.add(new Chat_Item(Data.my_nickname, msg, time, Data.ViewType.MY_MESSAGE, opponent_nickname));
+                        item.add(new Chat_Item(Data.my_nickname, msg, time, Data.ViewType.MY_MESSAGE));
                     // 상대방의 채팅일 때
                     else if (id.equals(opponent_id))
-                        item.add(new Chat_Item(opponent_nickname, msg, time, Data.ViewType.OPPONENT_MESSAGE, opponent_nickname));
+                        item.add(new Chat_Item(opponent_nickname, msg, time, Data.ViewType.OPPONENT_MESSAGE));
                 }
                 Data.chatData.put(opponent_id, item);
+                Data.idToNickname.put(opponent_id, opponent_nickname);
             }
         } catch (Exception e) {
             Data.printError(e);
@@ -230,23 +223,27 @@ public class ReceiveDataThread extends Thread {
     /*
     setInfoXML 메서드
      */
-    private void setInfoXML(JSONObject obj) {
+    private void setRecordXML(JSONObject obj) {
         try {
-            JSONArray arrReceive = obj.getJSONArray("arrReceive");
-            for (int i = 0; i < arrReceive.length(); i++) {
-                String id = arrReceive.getJSONObject(i).getString("opponent_nickname");
-                String time = arrReceive.getJSONObject(i).getString("time");
-                int category = Integer.parseInt(arrReceive.getJSONObject(i).getString("category"));
-                String price = arrReceive.getJSONObject(i).getString("price");
-                Data.infoReceive.add(new Info_Item(id, category, price, time));
-            }
-            JSONArray arrGive = obj.getJSONArray("arrGive");
-            for (int i = 0; i < arrGive.length(); i++) {
-                String id = arrGive.getJSONObject(i).getString("opponent_nickname");
-                String time = arrGive.getJSONObject(i).getString("time");
-                int category = Integer.parseInt(arrGive.getJSONObject(i).getString("category"));
-                String price = arrGive.getJSONObject(i).getString("price");
-                Data.infoGive.add(new Info_Item(id, category, price, time));
+            setRecordData("give", obj.getJSONArray("giveXML"));
+            setRecordData("receive", obj.getJSONArray("receiveXML"));
+
+        } catch (Exception e) {
+            Data.printError(e);
+        }
+    }
+    private void setRecordData(String flag, JSONArray arr) {
+        try {
+            for (int i = 0; i < arr.length(); i++) {
+                String nickname = arr.getJSONObject(i).getString("nickname");
+                String time = arr.getJSONObject(i).getString("time");
+                int category = Integer.parseInt(arr.getJSONObject(i).getString("category"));
+                String price = arr.getJSONObject(i).getString("price");
+
+                if (flag.equals("give"))
+                    Data.infoGive.add(new Record_Item(nickname, category, price, time));
+                else if (flag.equals("receive"))
+                    Data.infoReceive.add(new Record_Item(nickname, category, price, time));
             }
 
         } catch (Exception e) {
@@ -273,14 +270,14 @@ public class ReceiveDataThread extends Thread {
      */
     private void saveRequest(JSONObject obj) {
         try {
-            String ID = obj.getString("ID");
+            String id = obj.getString("id");
             String location = obj.getString("location");
-            double latitude = returnLatitude(location);
-            double longtitude = returnLongtitude(location);
+            double latitude = getLatitude(location);
+            double longtitude = getLongtitude(location);
 
-            markerMethod.setMarker(ID, latitude, longtitude);
+            markerMethod.setMarker(id, latitude, longtitude);
             // 내 등록요청일 경우
-            if (ID.equals(Data.my_id))
+            if (id.equals(Data.my_id))
                 ((Main) Data.mainContext).toastMsg("요청이 등록 되었습니다.");
         } catch (Exception e) {
             Data.printError(e);
@@ -348,13 +345,14 @@ public class ReceiveDataThread extends Thread {
         // 채팅내용 유무 확인
         // 1. 채팅 내용이 있을 때
         if (Data.chatData.containsKey(opponent_id)) {
-            Data.chatData.get(opponent_id).add(new Chat_Item(opponent_nickname, msg, time, viewType, opponent_nickname));
+            Data.chatData.get(opponent_id).add(new Chat_Item(opponent_nickname, msg, time, viewType));
         }
         // 2. 채팅 내용이 없을 때
         else {
             ArrayList<Chat_Item> list = new ArrayList<>();
-            list.add(new Chat_Item(opponent_nickname, msg, time, viewType, opponent_nickname));
+            list.add(new Chat_Item(opponent_nickname, msg, time, viewType));
             Data.chatData.put(opponent_id, list);
+            Data.idToNickname.put(opponent_id, opponent_nickname);
         }
     }
     private void chooseActivity(String opponent_id, String opponent_nickname, String msg) {
@@ -385,44 +383,17 @@ public class ReceiveDataThread extends Thread {
         }
     }
     /*
-    selectType 메서드
+    selectCetegory 메서드
      */
-    private void selectType(JSONObject obj) {
+    private void selectCetegory(JSONObject obj) {
         try {
             Set<String> id_set = Data.clientMarkers.keySet();
             Iterator<String> iter = id_set.iterator();
             while (iter.hasNext()) {
                 markerMethod.removeMarker(iter.next());
             }
-            obj.remove("flag");
-            Iterator iterator = obj.keys();
-            while (iterator.hasNext()) {
-                String id = iterator.next().toString();
-                String location = obj.getString(id);
-                markerMethod.setMarker(id, returnLatitude(location), returnLongtitude(location));
-            }
-
-        } catch (Exception e) {
-            Data.printError(e);
-        }
-    }
-    /*
-    selectPrice 메서드
-     */
-    private void selectPrice(JSONObject obj) {
-        try {
-            Set<String> id_set = Data.clientMarkers.keySet();
-            Iterator<String> iter = id_set.iterator();
-            while (iter.hasNext()) {
-                markerMethod.removeMarker(iter.next());
-            }
-            obj.remove("flag");
-            Iterator iterator = obj.keys();
-            while (iterator.hasNext()) {
-                String id = iterator.next().toString();
-                String location = obj.getString(id);
-                markerMethod.setMarker(id, returnLatitude(location), returnLongtitude(location));
-            }
+            JSONArray marekr = obj.getJSONArray("marker");
+            setMarker(marekr);
 
         } catch (Exception e) {
             Data.printError(e);
@@ -439,9 +410,9 @@ public class ReceiveDataThread extends Thread {
             String price = obj.getString("price");
             String time = obj.getString("time");
             if (type.equals("give"))
-                Data.infoGive.add(new Info_Item(opponent_nickname, category, price, time));
+                Data.infoGive.add(new Record_Item(opponent_nickname, category, price, time));
             else if (type.equals("receive"))
-                Data.infoReceive.add(new Info_Item(opponent_nickname, category, price, time));
+                Data.infoReceive.add(new Record_Item(opponent_nickname, category, price, time));
 
         } catch (Exception e) {
             Data.printError(e);
