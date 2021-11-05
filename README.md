@@ -161,26 +161,36 @@ editor.commit();
 
 * 로그인 시 현재 위치를 기반으로 카메라가 설정되고 다른 사용자들이 등록한 마커가 보여집니다.
 * 마커는 앱 실행 시 또는 추가적인 등록이 있을 때 마다 서버에서 등록된 아이디와 위치를 받아 파싱하여 표시합니다
-* 서버에서 마커 위치를 HashMap으로 저장하고 클라이언트에게 JSON형태가 아닌 HashMap을 그대로 전송하기에 Gson클래스를 사용하여 파싱했습니다.
 ```java
-private void setMarkers(JSONObject markers) {
-        try {
-            Gson gson = new Gson();
-            HashMap map = new HashMap();
-            map = (HashMap) gson.fromJson(markers.toString(), map.getClass());
-
-            for (Object id : map.keySet()) {
-                Object location = map.get(id);
-                // location이 String형태고 위도와 경도가 '#'으로 나눠져 있어 파싱하는 코드
-                double latitude = returnLatitude(location.toString());
-                double longtitude = returnLongtitude(location.toString());
-                // 맵에 마커 
-                markerMethod.setMarker(id.toString(), latitude, longtitude);
-            }
-        } catch (Exception e) {
-            Data.printError(e);
+private void setMarker(JSONArray marker) {
+    try {
+        for (int i = 0; i < marker.length(); i++) {
+            String id = marker.getJSONObject(i).getString("id");
+            String location = marker.getJSONObject(i).getString("location");
+            markerMethod.setMarker(id, getLatitude(location), getLongtitude(location));
         }
+    } catch (Exception e) {
+        Data.printError(e);
     }
+}
+```
+```java
+public class MarkerMethod extends AppCompatActivity {
+    /*
+     마커 등록 및 hashmap저장
+     */
+    public void setMarker(String id, double latitude, double longitude) {
+        runOnUiThread(new Runnable() {
+            public void run() {                
+                MarkerOptions myLocationMarker = setMarkerOption(latitude, longitude);
+                // 맵에 마커 등록
+                Marker marker = Data.map.addMarker(myLocationMarker);
+                // HashMap에 아이디와 마커 저
+                Data.clientMarkers.put(id, marker);
+            }
+        });
+    }
+}
 ```
 * 좌측상단의 버튼은 메뉴목록을 보여주는 버튼입니다.
 * 우측상단의 버튼은 현재위치로 카메라를 이동하는 버튼입니다.
