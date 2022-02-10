@@ -15,9 +15,6 @@
 ## 개발 환경 및 라이브러리
 > **Server**
 > * JAVA - Eclipse
-> * GUI
-> * Multi-Thread SocketIO
-> * JSON
 
 > **DataBase**
 > * SQL Developer    
@@ -26,7 +23,6 @@
 > **Client**
 > * JAVA - Android Stuio
 > * Google Map API
-> * JSON
 
 ## 어플 소개
 
